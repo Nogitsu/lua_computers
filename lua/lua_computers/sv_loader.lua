@@ -24,16 +24,16 @@ function LuaComputers.RunString( code, env, id )
     end
 end
 
-function LuaComputers.RunFile( path )
+function LuaComputers.RunFile( path, env, id )
     if not file.Exists( "lua_computers/" .. path, "DATA" ) then return error( "File " .. path .. " not found." ) end
 
-    LuaComputers.RunString( file.Read( "lua_computers/" .. path ) )
+    LuaComputers.RunString( file.Read( "lua_computers/" .. path ), env, id )
 end
 
-LuaComputers.OnNetwork( "RunString", function( ply, code )
-    LuaComputers.RunString( code, nil, "LuaTerminal" )
+LuaComputers.OnNetwork( "RunString", function( ply, code, env )
+    LuaComputers.RunString( code, LuaComputers.GetEnvironment( env ), "LuaTerminal" )
 end )
 
 LuaComputers.OnNetwork( "RunFile", function( ply, path )
-    LuaComputers.RunFile( path )
+    LuaComputers.RunFile( path, LuaComputers.GetEnvironment, path )
 end )

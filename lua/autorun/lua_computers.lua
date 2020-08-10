@@ -32,5 +32,7 @@ local function include_sh( path )
 end
 
 include_sh( "lua_computers/sh_networking.lua" )
+include_sh( "lua_computers/sh_environments.lua" )
 include_sv( "lua_computers/sv_loader.lua" )
+include_sh( "lua_computers/sh_terminal.lua" )
 include_cl( "lua_computers/cl_terminal.lua" )
