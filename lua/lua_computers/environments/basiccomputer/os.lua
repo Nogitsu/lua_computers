@@ -39,7 +39,6 @@ end
 
 function os.sleep( time )
     local thread = coroutine.running()
-    assert( thread, "No active coroutine" )
     
     timer.Simple( time, function()
         local success, error = coroutine.resume( thread )
@@ -57,10 +56,14 @@ end
 function os.cancelAlarm( alarmID )
 end
 
-function os.shutdown()
-end
+os.shutdown = coroutine.yield
 
 function os.reboot()
+    timer.Simple( 0, function()
+	    LuaComputers.RunFile( "startup.lua", "BasicComputer" )
+    end )
+
+    os.shutdown()
 end
 
 return os

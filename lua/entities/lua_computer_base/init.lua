@@ -23,5 +23,6 @@ function ENT:Use( ply )
 end
 
 function ENT:StartComputer()
-	LuaComputers.RunFile( "startup.lua", "BasicComputer" )
+	local id = self:EntIndex()
+	LuaComputers.coroutines[id] = LuaComputers.RunFile( "startup.lua", "BasicComputer", nil, id )
 end

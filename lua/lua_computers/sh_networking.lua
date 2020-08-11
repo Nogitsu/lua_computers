@@ -75,7 +75,3 @@ net.Receive( "LuaComputers", function( len, ply )
         events[ id ]( unpack( args ) )
     end
 end )
-
---  > Initializing names
-LuaComputers.AddNetwork( "RunString" )
-LuaComputers.AddNetwork( "RunFile" )
