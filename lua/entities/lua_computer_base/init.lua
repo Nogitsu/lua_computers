@@ -19,10 +19,5 @@ end
 
 function ENT:Use( ply )
 	LuaComputers.CallNetwork( "OpenComputer", ply, self:EntIndex() )
-	self:StartComputer()
-end
-
-function ENT:StartComputer()
-	local id = self:EntIndex()
-	LuaComputers.coroutines[id] = LuaComputers.RunFile( "startup.lua", "BasicComputer", nil, id )
+	--self:StartComputer()
 end

@@ -1,11 +1,16 @@
 local env_name = "BasicComputer"
 
+local os = LuaComputers.IncludeForEnvironment( env_name, "os.lua" )
+local colors = LuaComputers.IncludeForEnvironment( env_name, "colors.lua" )
+local term = LuaComputers.IncludeForEnvironment( env_name, "term.lua" )
+
 LuaComputers.AddEnvironment( env_name, {
     print = LuaComputers.Print,
     error = LuaComputers.Error,
-
-    os = LuaComputers.IncludeForEnvironment( env_name, "os.lua" ),
-
-    colors = LuaComputers.IncludeForEnvironment( env_name, "colors.lua" ),
-    term = LuaComputers.IncludeForEnvironment( env_name, "term.lua" ),
+    math = math,
+    --  > Standard
+    os = os,
+    --  > Graphics
+    colors = colors,
+    term = term,
 } )

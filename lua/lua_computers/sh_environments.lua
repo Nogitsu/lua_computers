@@ -9,7 +9,7 @@ function LuaComputers.GetEnvironment( name )
 end
 
 function LuaComputers.AddEnvironmentValue( env_name, name, value )
-    if not LuaComputers.environments[ name ] then return end
+    assert( LuaComputers.environments[ name ], "Environment doesn't exists" )
 
     LuaComputers.environments[ env_name ][ name ] = value
 end

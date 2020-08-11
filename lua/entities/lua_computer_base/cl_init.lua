@@ -35,7 +35,17 @@ function ENT:OpenComputer()
         surface.SetDrawColor( color_white )
         surface.DrawTexturedRect( 0, 0, w, h )
     end
+    function frame.OnRemove()
+        local thread = LuaComputers.coroutines[self:EntIndex()]
+        --if coroutine.isyieldable( thread ) then coroutine.yield( thread ) end
 
+        LuaComputers.coroutines[thread] = nil
+        LuaComputers.coroutines[self:EntIndex()] = nil
+    end
+
+    local infos = {
+        draw_funcs = {},
+    }
     local screen_panel = frame:Add( "DPanel" )
     screen_panel:Dock( FILL )
     screen_panel:SetBackgroundColor( Color( 12, 12, 12 ) )
@@ -43,6 +53,11 @@ function ENT:OpenComputer()
     function screen_panel:Paint( w, h )
         surface.SetDrawColor( self:GetBackgroundColor() )
         surface.DrawRect( 0, 0, w, h )
+
+        --  > Draw
+        for i, v in ipairs( infos.draw_funcs ) do
+            v( w, h )
+        end
     end
     function screen_panel:OnKeyCodePressed( code )
         --print( "Press: ",  code, input.GetKeyName( code ) )
@@ -54,6 +69,8 @@ function ENT:OpenComputer()
         end
         --print( "Release: ",  code, input.GetKeyName( code ) )
     end
+
+    self:StartComputer( infos )
 end
 
 LuaComputers.OnNetwork( "OpenComputer", function( ent )
