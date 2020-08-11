@@ -37,7 +37,18 @@ function os.time()
     return RealTime()
 end
 
-function os.sleep()
+function os.sleep( time )
+    local thread = coroutine.running()
+    assert( thread, "No active coroutine" )
+    
+    timer.Simple( time, function()
+        local success, error = coroutine.resume( thread )
+        if not success then
+            LuaComputers.Error( "Error:", error )
+        end
+    end )
+
+    coroutine.yield()
 end
 
 function os.setAlarm( time )

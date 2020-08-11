@@ -45,14 +45,14 @@ function ENT:OpenComputer()
         surface.DrawRect( 0, 0, w, h )
     end
     function screen_panel:OnKeyCodePressed( code )
-        print( "Press: ",  code, input.GetKeyName( code ) )
+        --print( "Press: ",  code, input.GetKeyName( code ) )
     end
     function screen_panel:OnKeyCodeReleased( code )
         if code == KEY_ESCAPE then
             frame:Remove()
             gui.HideGameUI()
         end
-        print( "Release: ",  code, input.GetKeyName( code ) )
+        --print( "Release: ",  code, input.GetKeyName( code ) )
     end
 end
 
