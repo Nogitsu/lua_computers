@@ -11,9 +11,10 @@ function LuaComputers.RunString( code, env, id )
     end
 
     --  > Set the environment and call our code
-    debug.setfenv( func, table.Copy( istable( env ) and env or LuaComputers.GetEnvironment( env ) or {} ) )
+    env = table.Copy( istable( env ) and env or LuaComputers.GetEnvironment( env ) or {} )
+    debug.setfenv( func, env )
 
-    local success, err = pcall( func )
+    local success, err = pcall( coroutine.wrap( func ) )
     if not success then
         LuaComputers.Error( "Error:", err )
     end
@@ -29,7 +30,7 @@ end
 
 function LuaComputers.RunFile( path, env, id )
     if not file.Exists( "lua_computers/" .. path, "DATA" ) then
-        assert( LuaComputers.RunDefaultFile( path, env, id ), "File " .. path .. " not found." )
+        return assert( LuaComputers.RunDefaultFile( path, env, id ), "File " .. path .. " not found." )
     end
 
     LuaComputers.RunString( file.Read( "lua_computers/" .. path ), env, id )

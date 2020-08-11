@@ -19,8 +19,9 @@ end
 
 function ENT:Use( ply )
 	LuaComputers.CallNetwork( "OpenComputer", ply, self:EntIndex() )
+	self:StartComputer()
 end
 
 function ENT:StartComputer()
-	
+	LuaComputers.RunFile( "startup.lua", "BasicComputer" )
 end
