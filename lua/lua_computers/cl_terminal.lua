@@ -31,12 +31,14 @@ function LuaComputers.OpenTerminal()
         submit:DockMargin( 5, 0, 0, 0 )
         submit:SetText( "Submit" )
         function submit:DoClick()
-            --LuaComputers.CallNetwork( "RunString", entry:GetValue(), "terminal" )
+            LuaComputers.AddTerminalText( Color( 150, 150, 150 ), "[Input:" .. LocalPlayer():Name() .. "(" .. LocalPlayer():SteamID() .. ")] ", entry:GetValue() )
             LuaComputers.RunString( entry:GetValue(), "terminal", "LuaTerminal" )
+
+            entry:SetValue( "" )
+            entry:RequestFocus()
         end
         function entry:OnEnter()
             submit:DoClick()
-            self:RequestFocus()
         end
     else
         LuaComputers.terminal:Show()
